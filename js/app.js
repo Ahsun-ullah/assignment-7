@@ -12,11 +12,11 @@ const getReportedPosts = () => {
 };
 
 const isLiked = (id) => {
-    return likedPostsId ?.length && !!likedPostsId.includes(id);
+    return likedPostsId?.length && !!likedPostsId.includes(id);
 };
 
 const addToLiked = (id) => {
-    likedPostsId.plus(id);
+    likedPostsId.push(id);  
     showPosts(posts);
 };
 
@@ -51,9 +51,10 @@ const switchTab = (id) => {
 };
 
 const createPost = (post) => {
-    const image = post.image;
-    const div = document.createElement("article");
-    div.classList.add("post");
+  const image = post.image;
+  const userImage = post.userImage;
+  const div = document.createElement("article");
+  div.classList.add("post");
     div.innerHTML = `
               <div class="post__header">
                 <div class="post__profile">
@@ -62,7 +63,7 @@ const createPost = (post) => {
                     target="_blank"
                     class="post__avatar"
                   >
-                    <img src="${image}" alt="User Picture" />
+                    <img src="${userImage}" alt="User Picture" />
                   </a>
                   <a href="#" class="post__user">phero</a>
                 </div>
@@ -120,9 +121,9 @@ const createPost = (post) => {
                   <div class="post__description">
                     <small>
                       <a class="post__name--underline" href="#">
-                          ${post.comments?.user}
+                          ${post.comments[0]?.user}
                       </a>
-                      ${post.comments?.text}
+                      ${post.comments[0]?.text}
                     </small>
                   </div>
                   <span class="post__date-time">30 minutes ago</span>
@@ -135,7 +136,7 @@ const createPost = (post) => {
 const showPosts = (posts) => {
     const productsContainer = document.getElementById("posts");
     productsContainer.innerHTML = "";
-
+    productsContainer.te
     posts.forEach((post) => {
         const div = createPost(post);
         productsContainer.appendChild(div);
@@ -144,6 +145,7 @@ const showPosts = (posts) => {
 
 const displayLikedPosts = () => {
     const likedPosts = getLikedPosts();
+    document.getElementById("liked").textContent=""
     likedPosts.forEach((post) => {
         const div = createPost(post);
         document.getElementById("liked").appendChild(div);
@@ -152,7 +154,8 @@ const displayLikedPosts = () => {
 
 const displayReportedPosts = () => {
     const reportedPosts = getReportedPosts();
-    posts.forEach((post) => {
+    document.getElementById("reported").textContent=""
+    reportedPosts.forEach((post) => {
         const div = createPost(post);
         document.getElementById("reported").appendChild(div);
     });
