@@ -132,7 +132,7 @@ const createPost = (post) => {
       `;
     return div;
 };
-// check
+// check 1
 const showPosts = (posts) => {
     const productsContainer = document.getElementById("posts");
     productsContainer.innerHTML = "";
